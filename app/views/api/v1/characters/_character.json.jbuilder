@@ -1,5 +1,5 @@
 json.extract! character, :codepoint, :charname
-if !decomp.empty?
+if defined?(decomp) && !decomp.empty?
   json.decomposition do
     json.array! decomp
   end

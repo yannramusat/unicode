@@ -5,6 +5,9 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :characters, :defaults => { :format => 'json' }
+      resources :users, :defaults => { :format => 'json' } do
+        resources :characters, controller: :user_characters, :defaults => { :format => 'json' }
+      end
     end
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
