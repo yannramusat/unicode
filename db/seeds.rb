@@ -37,3 +37,13 @@ end
 Character.import characters
 
 puts "There are now #{Character.count} unicode characters in the table."
+
+u1 = User.create username: "yann", mail: "yramusat@gmail.com"
+u2 = User.create username: "mpi", mail: "mpi@mpi.de"
+u3 = User.create username: "test", mail: "test.toto.com"
+
+u1.characters << Character.find("002A")
+u3.characters << Character.find("0059")
+u3.characters << Character.find("002A")
+
+puts "Seeded users and favorites."

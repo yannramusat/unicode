@@ -1,7 +1,7 @@
 class Character < ApplicationRecord
   self.primary_key = :codepoint
   
-  has_many :favorites
+  has_many :favorites, dependent: :destroy
   has_many :users, through: :favorites
   
   has_many :lowercases, class_name: "Character", foreign_key: :uppercase, inverse_of: :to_uppercase, dependent: :nullify
