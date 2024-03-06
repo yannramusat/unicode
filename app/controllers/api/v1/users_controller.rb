@@ -1,7 +1,7 @@
 module Api
     module V1
       class UsersController < ApplicationController
-        before_action :set_user, only: %i[ show ]
+        before_action :set_user, only: %i[ show update destroy]
   
         # GET /api/v1/users or /api/v1/users.json
         def index
@@ -15,11 +15,48 @@ module Api
             format.json
           end
         end
+
+        # POST /api/v1/users or /api/v1/users.json
+        def create
+          respond_to do |format|
+            @user = User.new(user_params)
+            if @user.save
+              format.json { render :show, status: :created, location: @user }
+            else
+              format.json { render json: @user.errors, status: :unprocessable_entity }
+            end
+          end
+        end
+
+        # PATCH/PUT /api/v1/users/1 or /api/v1/users/1.json
+        def update
+          respond_to do |format|
+            if @user.update(user_params)
+              format.json { render :show, status: :ok, location: @user }
+            else
+              format.json { render json: @user.errors, status: :unprocessable_entity }
+            end
+          end
+        end
+
+        # DELETE /users/1 or /users/1.json
+        def destroy
+          @user.destroy!
+
+          respond_to do |format|
+            format.json { head :no_content }
+          end
+        end
   
         private
           # Use callbacks to share common setup or constraints between actions.
           def set_user
             @user = User.find(params[:id])
+          end
+
+          # Only allow a list of trusted parameters through.
+          def user_params
+            params.require(:user).permit(:username, :mail)
           end
       end
     end

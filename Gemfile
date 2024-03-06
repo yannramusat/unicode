@@ -44,6 +44,9 @@ gem "bootsnap", require: false
 # Efficiency of Bulk imports improved
 gem "activerecord-import" 
 
+# Disable CORS for fetch api
+gem 'rack-cors', :require => 'rack/cors'
+
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
