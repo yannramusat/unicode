@@ -1,7 +1,7 @@
 module Api
   module V1
     class UserCharactersController < ApplicationController
-      before_action :set_character, only: %i[ show ]
+      before_action :set_character, only: %i[ update destroy]
       before_action :get_user
 
       # GET /api/v1/users/:user_id/characters or /api/v1/users/:user_id/characters.json
@@ -10,11 +10,20 @@ module Api
         render "api/v1/characters/index"
       end
 
-      # GET /api/v1/characters/1 or /api/v1/characters/1.json
-      def show
+      # PATCH/PUT /api/v1/users/:user_id/characters/1 or /api/v1/users/:user_id/characters/1.json
+      def update
         respond_to do |format|
-          format.html { redirect_to character_url(@character), notice: "Redirected from API because it returns JSON objects, but HTML has been requested." }
-          format.json
+          @user.characters << @character
+          format.json { render "api/v1/characters/show", status: :ok, location: @user }
+        end
+      end
+
+      # DELETE /api/v1/users/:user_id/characters/1 or /api/v1/users/:user_id/characters/1.json
+      def destroy
+        @user.characters.destroy(@character)
+
+        respond_to do |format|
+          format.json { head :no_content }
         end
       end
 

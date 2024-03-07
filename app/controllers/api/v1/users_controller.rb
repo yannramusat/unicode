@@ -39,7 +39,7 @@ module Api
           end
         end
 
-        # DELETE /users/1 or /users/1.json
+        # DELETE /api/v1/users/1 or /api/v1/users/1.json
         def destroy
           @user.destroy!
 
