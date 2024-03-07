@@ -15,6 +15,8 @@ module Api
         respond_to do |format|
           @user.characters << @character
           format.json { render "api/v1/characters/show", status: :ok, location: @user }
+        rescue  ActiveRecord::RecordNotUnique => e #if already set to favorite by this user
+          format.json { render json: e, status: :unprocessable_entity, location: @user }
         end
       end
 

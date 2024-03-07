@@ -38,6 +38,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_18_184846) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["character_id"], name: "index_favorites_on_character_id"
+    t.index ["user_id", "character_id"], name: "index_favorites_on_user_id_and_character_id", unique: true
     t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
