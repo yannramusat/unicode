@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_18_184846) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_23_122958) do
   create_table "characters", primary_key: "codepoint", id: { type: :string, limit: 6 }, force: :cascade do |t|
     t.text "charname"
     t.string "category", limit: 2, null: false
@@ -40,6 +40,27 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_18_184846) do
     t.index ["character_id"], name: "index_favorites_on_character_id"
     t.index ["user_id", "character_id"], name: "index_favorites_on_user_id_and_character_id", unique: true
     t.index ["user_id"], name: "index_favorites_on_user_id"
+  end
+
+  create_table "ingredients", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "ingredients_recipes", id: false, force: :cascade do |t|
+    t.integer "ingredient_id", null: false
+    t.integer "recipe_id", null: false
+    t.index ["ingredient_id", "recipe_id"], name: "index_ingredients_recipes_on_ingredient_id_and_recipe_id"
+    t.index ["recipe_id", "ingredient_id"], name: "index_ingredients_recipes_on_recipe_id_and_ingredient_id"
+  end
+
+  create_table "recipes", force: :cascade do |t|
+    t.string "title"
+    t.text "instructions"
+    t.string "category"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
