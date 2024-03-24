@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   end
 
   get '/ingredients', to: 'ingredients#index', defaults: { :format => 'json' }
+  get '/recipes', to: 'recipes#index', defaults: { :format => 'json' }
   
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
